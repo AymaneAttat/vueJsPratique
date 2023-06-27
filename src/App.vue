@@ -1,15 +1,24 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <header>
+    <h1>{{ taskStore.name }}</h1>
+  </header>
+  <TaskList :tasks="taskStore.tasks" :favs="taskStore.fav" :totalCount="taskStore.totalCount" :favCount="taskStore.favCount" />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TaskList from './components/TaskList.vue';
+import { useTaskStore } from './store/TaskStore';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    TaskList
+  },
+  setup(){
+    const taskStore = useTaskStore();
+    console.log(taskStore.totalCount, taskStore.favCount)
+
+    return { taskStore }
   }
 }
 </script>

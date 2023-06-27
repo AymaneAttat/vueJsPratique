@@ -1,27 +1,10 @@
 <template>
-  <header>
-    <h1>{{ taskStore.name }}</h1>
-  </header>
-  <TaskList :tasks="taskStore.tasks" :favs="taskStore.fav" :totalCount="taskStore.totalCount" :favCount="taskStore.favCount" />
+  <nav>
+    <router-link to="/">Home</router-link> |
+    <router-link to="/about">About</router-link>
+  </nav>
+  <router-view/>
 </template>
-
-<script>
-import TaskList from './components/TaskList.vue';
-import { useTaskStore } from './store/TaskStore';
-
-export default {
-  name: 'App',
-  components: {
-    TaskList
-  },
-  setup(){
-    const taskStore = useTaskStore();
-    console.log(taskStore.totalCount, taskStore.favCount)
-
-    return { taskStore }
-  }
-}
-</script>
 
 <style>
 #app {
@@ -30,6 +13,18 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+nav {
+  padding: 30px;
+}
+
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>

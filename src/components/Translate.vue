@@ -5,9 +5,16 @@
     </div>
     <h2>{{ localised('hello') }}</h2>
     <h2>{{ localised('goodbye') }}</h2>
+
+    <hr>
+    <HelloWorld />
 </template>
 <script>
+import HelloWorld from './HelloWorld.vue'
 export default {
+    components: {
+        HelloWorld
+    },
     data() {
         return {
             activeLocale: 'en',

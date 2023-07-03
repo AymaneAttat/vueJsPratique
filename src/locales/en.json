@@ -1,3 +1,9 @@
 {
-  "message": "hello i18n !!"
+  "message": "hello {name}",
+  "hello": "Hello",
+  "goodbye": "GoodBye",
+  "car": "car | cars",
+  "person": "person | people | {n} people",
+  "terms": "I accept the {termsURL} of the service contract",
+  "termsURL": "terms and conditions"
 }

@@ -1,57 +1,77 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+  <div>
+    <p>{{ t("hello") }}</p>
+    <p>{{ t("message", {name}) }}</p>
+    <p>{{ t("goodbye") }}</p>
+    <p>{{ t("car", 2) }}</p>
+    <p>{{ t("person", 5) }}</p>
+
+    <p>{{ d(new Date(), "short") }}</p>
+    <p>{{ d(new Date(), "long") }}</p>
+
+    <p>{{ n(100, "currency") }}</p>
+
+    <i18n-n tag="span" :value="4000.45" format="currency">
+      <template #currency="slotProps">
+        <span style="color: green">{{ slotProps.currency }}</span>
+      </template>
+      <template #integer="slotProps">
+        <span style="font-weight: bold; color: green;">{{ slotProps.integer }}</span>
+      </template>
+      <template #fraction="slotProps">
+        <span style="font-size: small">{{ slotProps.fraction }}</span>
+      </template>
+    </i18n-n>
+
+    <i18n-t keypath="terms" tag="p">
+      <template v-slot:termsURL>
+        <a href="/url" target="_blank">{{ t("termsURL") }}</a>
+      </template>
+    </i18n-t>
+    <button @click="setLocale('en')" class="btn btn-sm btn-primary">English</button>
+    <button @click="setLocale('es')" class="btn btn-sm btn-success">Spanish</button>
+    <button @click="setLocale('de')" class="btn btn-sm btn-info">German</button>
+    <button @click="setLocale('fr')" class="btn btn-sm btn-info">français</button>
   </div>
 </template>
 
 <script>
+import { useI18n } from 'vue-i18n'
+import { onMounted, onUpdated } from 'vue';
+
 export default {
   name: 'HelloWorld',
-  props: {
-    msg: String
+  setup() {
+    const { t, d, n, locale } = useI18n({
+      inheritLocale: true,
+      useScope: 'global'
+    });
+
+    const name = "Aymane";
+
+    const setLocale = function(local){
+      locale.value = local;
+      localStorage.setItem("locale", local)
+    }
+
+    onMounted(() => {
+      console.log('One Post Mounted')
+      const local = localStorage.getItem("locale");
+      if(local){
+        locale.value = local;
+      }else if(navigator.language){
+        //we can check what the users preferred language is and serve the page in their preferred language (navigator.language)
+        locale.value = navigator.language.substring(0, 2);
+        localStorage.setItem("locale", locale.value)
+      }
+    });
+
+    return { t, d, n, locale, name, setLocale }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+<style>
+
 </style>

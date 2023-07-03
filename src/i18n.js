@@ -1,5 +1,63 @@
 import { createI18n } from 'vue-i18n'
 
+
+const numberFormats = {
+  en: {
+    currency: {
+      style: "currency",
+      currency: 'EUR'
+    }
+  },
+  es: {
+    currency: {
+      style: "currency",
+      currency: 'EUR',
+      currencyDisplay: 'code'
+    }
+  },
+  fr: {
+    currency: {
+      style: "currency",
+      currency: 'EUR'
+    }
+  },
+  de: {
+    currency: {
+      style: "currency",
+      currency: 'EUR',
+      currencyDisplay: 'name'
+    }
+  }
+}
+
+const setDateTimeFormat = {
+  short: {
+    //   year: "2-digit",
+    //   month: "short",
+    //   day: "2-digit"
+    // }
+      year: "numeric",
+      month: "short",
+      day: "numeric"
+    },
+    long: {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      weekday: "long",
+      hour: "numeric",
+      minute: "numeric"
+    }
+};
+
+const datetimeFormats = {
+  en: setDateTimeFormat,
+  es: setDateTimeFormat,
+  fr: setDateTimeFormat,
+  de: setDateTimeFormat
+  
+};
+
 /**
  * Load locale messages
  *
@@ -23,5 +81,7 @@ export default createI18n({
   legacy: false,
   locale: process.env.VUE_APP_I18N_LOCALE || 'en',
   fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || 'en',
-  messages: loadLocaleMessages()
+  messages: loadLocaleMessages(),
+  datetimeFormats,
+  numberFormats
 })

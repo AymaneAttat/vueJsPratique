@@ -1,5 +1,7 @@
 <template>
-  <p>{{ t('hello') }}</p>
+  <p>{{ t('hello', {name: "Aymane"}) }}</p>
+  <p>{{ t('message') }}</p>
+  <p>{{ t('goodbye') }}</p>
 </template>
 
 <script>
@@ -14,8 +16,6 @@ export default defineComponent({
       useScope: 'local'
     })
 
-    // Something todo ..
-
     return { t }
   }
 })
@@ -25,6 +25,9 @@ export default defineComponent({
 {
   "en": {
     "hello": "Hello i18n in SFC!"
-  }
+  },
+  "es": {
+    "hello": "Hola"
+  },
 }
 </i18n>

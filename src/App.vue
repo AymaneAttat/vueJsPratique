@@ -1,6 +1,7 @@
 <template>
   <nav>
     <router-link to="/">Home</router-link> |
+    <router-link to="/vee-validate">Vee Validate</router-link> |
     <router-link to="/translate">Translate</router-link> |
     <router-link to="/translateI18n">Translate with I18n</router-link>
   </nav>

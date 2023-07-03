@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import VeeValidate from '@/components/VeeValidate.vue'
 import TranslateI18n from '../components/HelloI18n.vue'
 
 const routes = [
@@ -7,6 +8,11 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView
+  },
+  {
+    path: '/vee-validate',
+    name: 'veevalidate',
+    component: VeeValidate
   },
   {
     path: '/translateI18n',
